@@ -1,0 +1,30 @@
+{
+    "name": "daxslab/yii2-website-module",
+    "description": "Yii2 client module to interact with sites.daxslab.com.",
+    "type": "yii2-extension",
+    "keywords": ["yii2","extension"," facebook"," comments"," "],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Gabriel A. López López",
+            "email": "glpz@daxslab.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*",
+        "yiisoft/yii2-bootstrap4": "~1.0.0",
+        "2amigos/yii2-ckeditor-widget" : "2.0",
+        "2amigos/yii2-gallery-widget": "~1.0",
+        "daxslab/yii2-thumbnailer": "dev-master",
+        "daxslab/yii2-taggedview": "~1.0.0",
+        "daxslab/yii2-uploader-behavior": "~1.0.0",
+        "vinpel/yii2-dropzone": "~1.0.4",
+        "zelenin/yii2-rss": "dev-master",
+        "yii2tech/ar-position": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "daxslab\\website\\": ""
+        }
+    }
+}

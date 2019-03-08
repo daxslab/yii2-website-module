@@ -1,0 +1,31 @@
+h1, .h1{font-size: 1.35em}
+h2, .h2{font-size: 1.3em}
+h3, .h3{font-size: 1.25em}
+h4, .h4{font-size: 1.2em}
+h5, .h5{font-size: 1.15em}
+h6, .h6{font-size: 1.1em}
+
+h1, h2, h3, h4, h5, h6 {
+    /*font-weight: bold;*/
+}
+
+h2 span, h3 span, h4 span, h5 span, h6 span {
+    font-weight: normal;
+}
+
+.img-fluid {
+    width: 100%;
+}
+
+#image-gallery-modal .col-md-3 {
+    padding: 0;
+}
+
+#image-gallery-modal .modal-body {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.modal-lg {
+    max-width: 1024px;
+}
