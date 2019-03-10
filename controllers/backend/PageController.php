@@ -28,8 +28,6 @@ class PageController extends Controller
         ];
     }
 
-    private $className = Page::class;
-
     public function actionIndex($parent_id = null)
     {
         $dataProvider = new ActiveDataProvider();
@@ -197,7 +195,7 @@ class PageController extends Controller
 
     protected function findModel($id)
     {
-        if (($model = ($this->className)::findOne($id)) !== null) {
+        if (($model = Page::findOne($id)) !== null) {
             return $model;
         }
 
