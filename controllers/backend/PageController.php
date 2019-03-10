@@ -58,7 +58,7 @@ class PageController extends Controller
 
     public function actionCreate($page_type_id, $language, $parent_id = null)
     {
-        $model = new $this->className([
+        $model = new Page([
             'page_type_id' => $page_type_id,
             'parent_id' => $parent_id,
             'language' => $language,
