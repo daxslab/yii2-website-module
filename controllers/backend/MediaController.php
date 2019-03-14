@@ -114,14 +114,14 @@ class MediaController extends Controller
         $imagesList = [];
 
         $thumbnailer = Yii::$app->thumbnailer;
-        $website = str_replace(['http://', 'https://'], ['', ''], $this->currentWebsite->url);
-        $thumbnailer->thumbnailsPath = Yii::getAlias("@webroot/../../websites/{$website}/web/assets/thumbnails");
-        $thumbnailer->thumbnailsBaseUrl = "{$this->currentWebsite->url}/assets/thumbnails";
+//        $website = str_replace(['http://', 'https://'], ['', ''], $this->currentWebsite->url);
+//        $thumbnailer->thumbnailsPath = Yii::getAlias("@webroot/../../websites/{$website}/web/assets/thumbnails");
+//        $thumbnailer->thumbnailsBaseUrl = "{$this->currentWebsite->url}/assets/thumbnails";
 
         foreach ($images as $image) {
             $img = [
-                "thumb" => $thumbnailer->get($image->fileUrl, 100, 100),
-                "image" => $image->fileUrl,
+                "thumb" => $thumbnailer->get($image->url, 100, 100),
+                "image" => $image->url,
                 "folder" => Yii::t('website','Gallery'),
             ];
             $imagesList[] = $img;

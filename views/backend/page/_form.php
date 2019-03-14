@@ -45,6 +45,7 @@ $currentWebsite = Yii::$app->website;
                 'clientOptions' => [
                     'extraPlugins' => 'showprotected,imagebrowser,showblocks,pastefromword,div,find,save,clipboard',
                     'imageBrowser_listUrl' => \yii\helpers\Url::to(['/website/media/get-images-for-gallery']),
+                    'imageBrowser_pluginPath' => Yii::$app->assetManager->bundles[\daxslab\website\WebsiteAsset::class]->baseUrl,
                     'allowedContent' => true,
                     'contentsCss' => [
                         Yii::$app->assetManager->bundles[\yii\bootstrap4\BootstrapAsset::class]->baseUrl . '/css/bootstrap.css',
@@ -67,10 +68,10 @@ JS;
             $this->registerJs($script, View::POS_END);
             ?>
 
-            <h2><?= Yii::t('website','Subpages') ?></h2>
+            <h2><?= Yii::t('website', 'Subpages') ?></h2>
 
             <?= $model->id == null
-                ? Html::tag('div', Yii::t('website','You must save this page before adding subpages'), ['class' => 'alert alert-info'])
+                ? Html::tag('div', Yii::t('website', 'You must save this page before adding subpages'), ['class' => 'alert alert-info'])
                 : Yii::$app->runAction('/website/page/index', [
                     'parent_id' => $model->id,
                     'language' => $model->language,
@@ -89,14 +90,14 @@ JS;
 
                         <div class="btn-group" role="group" aria-label="Basic example">
 
-                            <?= Html::button(Yii::t('website','Set'), [
+                            <?= Html::button(Yii::t('website', 'Set'), [
                                 'class' => 'btn btn-primary',
                                 'data' => [
                                     'toggle' => 'modal',
                                     'target' => '#image-gallery-modal',
                                 ]]) ?>
 
-                            <?= Html::button(Yii::t('website','Delete'), [
+                            <?= Html::button(Yii::t('website', 'Delete'), [
                                 'id' => 'btn-remove-picture',
                                 'class' => 'btn btn-danger',
                             ]) ?>
@@ -109,7 +110,7 @@ JS;
                     \yii\bootstrap4\Modal::begin([
                         'id' => 'image-gallery-modal',
                         'size' => \yii\bootstrap4\Modal::SIZE_LARGE,
-                        'title' => Yii::t('website','Select an image'),
+                        'title' => Yii::t('website', 'Select an image'),
                         'options' => [
                             'data' => [
                                 'target-field' => '#page-image',
@@ -137,12 +138,12 @@ JS;
             <?php endforeach; ?>
 
             <div class="form-group">
-                <?= Html::submitButton(Yii::t('website','Save'), ['class' => 'btn btn-primary']) ?>
+                <?= Html::submitButton(Yii::t('website', 'Save'), ['class' => 'btn btn-primary']) ?>
                 <?php if (!$model->isNewRecord): ?>
-                    <?= Html::a(Yii::t('website','Delete'), Lookup::getLink($model, 'delete'), [
+                    <?= Html::a(Yii::t('website', 'Delete'), Lookup::getLink($model, 'delete'), [
                         'class' => 'btn btn-danger',
                         'data-method' => 'post',
-                        'data-confirm' => Yii::t('website','Are you sure you want to delete this item?'),
+                        'data-confirm' => Yii::t('website', 'Are you sure you want to delete this item?'),
                     ]) ?>
                 <?php endif; ?>
             </div>
