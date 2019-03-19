@@ -11,11 +11,10 @@ class SluggableBehavior extends \yii\behaviors\SluggableBehavior
     protected function getValue($event)
     {
         $slugs = [Inflector::slug($this->owner->{$this->attribute})];
-        $current = $this->owner->parent;
-        while ($current) {
-            $slugs[] = $current->slug;
-            $current = $current->parent;
+        if($this->owner->parent){
+            $slugs[] = $this->owner->parent->slug;
         }
+
         return implode('/', array_reverse($slugs));
     }
 
