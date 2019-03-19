@@ -167,37 +167,31 @@ class Website extends ActiveRecord
      */
     public function afterSave($insert, $changedAttributes)
     {
-//        $this->link('users', Yii::$app->user->identity);
-//        $defaultTranslation = new WebsiteTranslation([
-//            'language' => $this->defaultLanguage,
-//            'title' => $this->name,
-//        ]);
-//        $this->link('translations', $defaultTranslation);
-//
-//        //create page types
-        {
-            $types = [];
-            $types[] = new PageType([
-                'name' => 'landing',
-                'website_id' => $this->id,
-            ]);
-            $types[] = new PageType([
-                'name' => 'page',
-                'website_id' => $this->id,
-            ]);
-            $types[] = new PageType([
-                'name' => 'list',
-                'website_id' => $this->id,
-            ]);
-            $types[] = new PageType([
-                'name' => 'gallery',
-                'website_id' => $this->id,
-            ]);
+        if($insert){
+            {
+                $types = [];
+                $types[] = new PageType([
+                    'name' => 'landing',
+                    'website_id' => $this->id,
+                ]);
+                $types[] = new PageType([
+                    'name' => 'page',
+                    'website_id' => $this->id,
+                ]);
+                $types[] = new PageType([
+                    'name' => 'list',
+                    'website_id' => $this->id,
+                ]);
+                $types[] = new PageType([
+                    'name' => 'gallery',
+                    'website_id' => $this->id,
+                ]);
 
-            foreach ($types as $type) {
-                $type['created_at'] = $this->created_at;
-                $type['updated_at'] = $this->created_at;
-                $type->save();
+                foreach ($types as $type) {
+                    $type['created_at'] = $this->created_at;
+                    $type['updated_at'] = $this->created_at;
+                    $type->save();
+                }
             }
         }
 //
