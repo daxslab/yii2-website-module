@@ -56,6 +56,7 @@ class Media extends ActiveRecord
             [
                 'class' => UploaderBehavior::class,
                 'uploadPath' => '@uploads',
+                'renamer' => Yii::$app->getModule('website')->renamer,
             ],
         ];
         return array_merge(parent::behaviors(), $localBehaviors);

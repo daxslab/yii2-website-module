@@ -2,6 +2,7 @@
 
 namespace daxslab\website;
 
+use daxslab\behaviors\UploaderBehavior;
 use daxslab\thumbnailer\Thumbnailer;
 use daxslab\website\models\Website;
 use Yii;
@@ -27,6 +28,8 @@ class Module extends BaseModule implements BootstrapInterface
     public $languages = [];
 
     public $cacheThumbnails = false;
+
+    public $renamer = UploaderBehavior::RENAME_RANDOM;
 
     public $urlRules = [
         '<_lang:[\w-]+>' => 'page/home',
