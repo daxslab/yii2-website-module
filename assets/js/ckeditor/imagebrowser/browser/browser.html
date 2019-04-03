@@ -1,23 +1,49 @@
 <!doctype html>
 <html>
-	<head>
-		<link rel="stylesheet" href="browser.css" />
-	</head>
+<head>
+    <link rel="stylesheet" href="browser.css"/>
+</head>
 
-	<body>
-		<script type="text/x-template-html" id="js-template-image">
-			<a href="javascript://" class="thumbnail js-image-link" data-url="%imageUrl%"><img src="%thumbUrl%" /></a>
-		</script>
+<body>
+<script type="text/x-template-html" id="js-template-image">
+    <a href="javascript://" class="thumbnail js-image-link" data-url="%imageUrl%"><img src="%thumbUrl%"/></a>
+</script>
 
-		<select class="folder-switcher" id="js-folder-switcher"><option>Loading..</option></select>
+<select class="folder-switcher" id="js-folder-switcher">
+    <option>Loading..</option>
+</select>
 
-		<div id="js-images-container"></div>
+<form method="get">
+    <input id="search-input" type="text">
+</form>
 
-		<script type="text/javascript" src="jquery-1.9.1.min.js"></script>
-		<script type="text/javascript" src="browser.js"></script>
+<div id="js-images-container"></div>
 
-		<script type="text/javascript">
-			CkEditorImageBrowser.init();
-		</script>
-	</body>
+<script type="text/javascript" src="jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="browser.js"></script>
+
+<script type="text/javascript">
+    CkEditorImageBrowser.init();
+
+    $(function () {
+
+        $(document).on('keyup', '#search-input', function (e) {
+            let value = $(this).val();
+            console.log(value);
+
+            if (value == '') {
+                $('a.thumbnail').show();
+            } else {
+                $('a.thumbnail').hide();
+                let selector = 'a[data-url*="{param}"]'.replace('{param}', value);
+                console.log(selector);
+                $(selector).show();
+            }
+
+        }).change();
+
+    });
+
+</script>
+</body>
 </html>
