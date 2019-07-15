@@ -5,7 +5,10 @@ namespace daxslab\website\models;
 use common\models\User;
 use Yii;
 use yii\base\Exception;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
+use yii\db\Expression;
 use yii\helpers\FileHelper;
 use yii\helpers\Inflector;
 use yii\helpers\Url;
@@ -43,14 +46,25 @@ class Website extends ActiveRecord
         ];
     }
 
+    public function behaviors()
+    {
+        return [
+            BlameableBehavior::class,
+            [
+                'class' => TimestampBehavior::class,
+                'value' => new Expression('NOW()'),
+            ],
+        ];
+    }
+
     /**
      * @inheritdoc
      */
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('website','ID'),
-            'token' => Yii::t('website','Token'),
+            'id' => Yii::t('website', 'ID'),
+            'token' => Yii::t('website', 'Token'),
         ];
     }
 
@@ -69,7 +83,8 @@ class Website extends ActiveRecord
         return $this->hasMany(Menu::class, ['website_id' => 'id'])->inverseOf('website');
     }
 
-    public function getMenu($slug){
+    public function getMenu($slug)
+    {
         return $this->getMenus()->bySlug($slug);
     }
 
@@ -80,6 +95,7 @@ class Website extends ActiveRecord
      */
     public function getPage($slug, $language = null)
     {
+        $language = $language ?: Yii::$app->language;
         return $this->getPages()->where([
             'language' => $language,
             'slug' => $slug
@@ -95,7 +111,8 @@ class Website extends ActiveRecord
             ->inverseOf('website');
     }
 
-    public function getRootPages(){
+    public function getRootPages()
+    {
         return $this->getPages()->roots();
     }
 
@@ -167,7 +184,7 @@ class Website extends ActiveRecord
      */
     public function afterSave($insert, $changedAttributes)
     {
-        if($insert){
+        if ($insert) {
             {
                 $types = [];
                 $types[] = new PageType([

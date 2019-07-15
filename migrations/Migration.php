@@ -67,8 +67,8 @@ class Migration extends BaseMigration
         $columns = array_merge($columns, [
             'created_at' => $this->dateTime()->notNull(),
             'updated_at' => $this->dateTime()->notNull(),
-            'created_by' => $this->integer()->notNull(),
-            'updated_by' => $this->integer()->notNull(),
+            'created_by' => $this->integer()->null(),
+            'updated_by' => $this->integer()->null(),
         ]);
 
         parent::createTable($table, $columns, $options);

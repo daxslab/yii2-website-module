@@ -8,7 +8,7 @@ use daxslab\website\models\Page;
 
 class BlockController extends BaseController
 {
-    public function actionView($slug, $view, $limit = 3)
+    public function actionView($slug, $view = null, $limit = 3)
     {
         $model = $this->findModel($slug, Yii::$app->language);
         $dataProvider = new ArrayDataProvider([
@@ -18,6 +18,8 @@ class BlockController extends BaseController
                 ->limit($limit)
                 ->all()
         ]);
+
+        $view = isset($view) ? $view : $model->type->name;
 
         return $this->renderPartial($view, [
             'view' => $view,

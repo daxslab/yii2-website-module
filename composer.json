@@ -27,4 +27,7 @@
             "daxslab\\website\\": ""
         }
     }
+    "extra": {
+        "bootstrap": "daxslab\\website\\Bootstrap"
+    }
 }
