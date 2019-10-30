@@ -25,8 +25,6 @@ use yii\helpers\Url;
  */
 class Website extends ActiveRecord
 {
-
-
     /**
      * @inheritdoc
      */
@@ -211,12 +209,6 @@ class Website extends ActiveRecord
                 }
             }
         }
-//
-//        try {
-//            $this->createWebsiteDir();
-//        } catch (Exception $e) {
-//            die(var_dump($e));
-//        }
 
         return parent::afterSave($insert, $changedAttributes);
     }
