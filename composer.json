@@ -19,7 +19,7 @@
         "daxslab/yii2-taggedview": "~1.0.0",
         "daxslab/yii2-uploader-behavior": "~1.0.0",
         "vinpel/yii2-dropzone": "~1.0.4",
-        "zelenin/yii2-rss": "dev-master",
+        "zelenin/yii2-rss": "~0.1.0",
         "yii2tech/ar-position": "^1.0"
     },
     "autoload": {
