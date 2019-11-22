@@ -1,6 +1,6 @@
 {
     "name": "daxslab/yii2-website-module",
-    "description": "Yii2 client module to interact with sites.daxslab.com.",
+    "description": "Yii2 module to manage website content. Kind of a CMS...",
     "type": "yii2-extension",
     "keywords": ["yii2","extension"," facebook"," comments"," "],
     "license": "MIT",
