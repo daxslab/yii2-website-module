@@ -3,8 +3,8 @@
 use yii\helpers\Html;
 
 $thumbnailUrl = isset($model->image)
-    ? Yii::$app->thumbnailer->get($model->image, 75)
-    : Yii::$app->thumbnailer->get(Yii::getAlias('@web/images/no-image.png'), 75);
+    ? Yii::$app->thumbnailer->get($model->image, 75, 75)
+    : Yii::$app->thumbnailer->get(Yii::getAlias('@web/images/no-image.png'), 75, 75);
 
 ?>
 
