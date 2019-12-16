@@ -12,10 +12,10 @@
     ],
     "require": {
         "yiisoft/yii2": "*",
-        "yiisoft/yii2-bootstrap4": "~1.0.0",
+        "yiisoft/yii2-bootstrap4": "~2.0.0",
         "2amigos/yii2-ckeditor-widget" : "2.0",
         "2amigos/yii2-gallery-widget": "~1.0",
-        "daxslab/yii2-thumbnailer": "dev-master",
+        "daxslab/yii2-thumbnailer": "*",
         "daxslab/yii2-taggedview": "~1.0.0",
         "daxslab/yii2-uploader-behavior": "~1.0.0",
         "vinpel/yii2-dropzone": "~1.0.4",
