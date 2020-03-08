@@ -33,7 +33,7 @@ class Module extends BaseModule
 
     public $urlRules = [
         '<_lang:[\w-]+>' => 'page/home',
-        '<_lang:[\w-]+>/<slug:[\w-/]+>' => 'page/view',
+        '<_lang:[\w-]+>/<slug:[\w/-]+>' => 'page/view',
     ];
 
     public function init()
@@ -45,19 +45,19 @@ class Module extends BaseModule
     {
         return [
             [
-                'label' => Yii::t('website','Pages'),
+                'label' => Yii::t('website', 'Pages'),
                 'url' => ["/{$this->id}/page/index"],
             ],
             [
-                'label' => Yii::t('website','Media'),
+                'label' => Yii::t('website', 'Media'),
                 'url' => ["/{$this->id}/media/index"],
             ],
             [
-                'label' => Yii::t('website','Menus'),
+                'label' => Yii::t('website', 'Menus'),
                 'url' => ["/{$this->id}/menu/index"],
             ],
             [
-                'label' => Yii::t('website','Settings'),
+                'label' => Yii::t('website', 'Settings'),
                 'url' => ["/{$this->id}/website/update"],
             ]
         ];

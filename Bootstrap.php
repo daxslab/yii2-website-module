@@ -43,21 +43,29 @@ class Bootstrap implements BootstrapInterface
                 ];
             }
 
-            if($app instanceof \yii\web\Application){
+            if ($app instanceof \yii\web\Application) {
 
-                if(empty($module->languages)){
+                if (empty($module->languages)) {
                     $module->languages = [$app->language];
                 }
 
-//                $configUrlRule = [
-//                    'routePrefix' => 'website',
-//                    'rules' => $module->urlRules,
-//                ];
-//
-//                $configUrlRule['class'] = 'yii\web\GroupUrlRule';
-//                $rule = Yii::createObject($configUrlRule);
-//
-//                $app->urlManager->addRules([$rule], false);
+                if (!empty($module->languages)) {
+                    $langs = join('|', $module->languages);
+                    $module->urlRules = [
+                        '<_lang:(' . $langs . ')>' => 'page/home',
+                        '<_lang:(' . $langs . ')>/<slug:[\w/-]+>' => 'page/view',
+                    ];
+                }
+
+                $configUrlRule = [
+                    'routePrefix' => 'website',
+                    'rules' => $module->urlRules,
+                ];
+
+                $configUrlRule['class'] = 'yii\web\GroupUrlRule';
+                $rule = Yii::createObject($configUrlRule);
+
+                $app->urlManager->addRules([$rule], false);
 
                 if (!$app->has('thumbnailer')) {
                     $app->set('thumbnailer', [
@@ -69,13 +77,13 @@ class Bootstrap implements BootstrapInterface
                 }
 
                 if (!isset($module->token)) {
-                    throw new InvalidArgumentException(Yii::t('website',"The token must be set"));
+                    throw new InvalidArgumentException(Yii::t('website', "The token must be set"));
                 }
 
                 $website = Website::find()->byToken($module->token);
 
                 if ($website == null) {
-                    throw new InvalidArgumentException(Yii::t('website',"The token is invalid"));
+                    throw new InvalidArgumentException(Yii::t('website', "The token is invalid"));
                 }
 
                 $app->set('website', $website);
@@ -88,7 +96,7 @@ class Bootstrap implements BootstrapInterface
                         ? '@daxslab/website/views/frontend'
                         : $module->viewPath;
                 }
-            }else{
+            } else {
                 $module->controllerNamespace = 'daxslab\website\commands';
             }
 
