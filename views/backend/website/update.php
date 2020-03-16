@@ -7,6 +7,7 @@ use yii\helpers\Html;
 
 $this->title = Yii::t('website','Settings');
 $this->params['breadcrumbs'][] = $this->title;
+$module = $this->context->module->id;
 ?>
 <div class="website-update">
 
@@ -18,6 +19,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
     ]) ?>
 
-    <?= Yii::$app->runAction('/website/page-type/index') ?>
+    <?= Yii::$app->runAction("/$module/page-type/index") ?>
 
 </div>

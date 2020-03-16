@@ -12,13 +12,14 @@ use yii\helpers\Url;
 /* @var $dataProvider ActiveDataProvider */
 
 $website = Yii::$app->website;
+$module = $this->context->module->id;
 
 ?>
 <div class="menu-item-index">
 
     <p>
         <?= Html::a(Yii::t('website','New Item'), [
-            '/website/menu-item/create',
+            "/$module/menu-item/create",
             'menu_id' => $menu->id,
             'language' => $language,
         ]) ?>

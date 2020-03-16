@@ -92,6 +92,7 @@ class Bootstrap implements BootstrapInterface
                     $module->viewPath = '@daxslab/website/views/backend';
                     WebsiteAsset::register($app->view);
                 } else {
+                    WebsiteAsset::register($app->view);
                     $module->viewPath = $module->viewPath == Yii::getAlias('@daxslab/website/views')
                         ? '@daxslab/website/views/frontend'
                         : $module->viewPath;

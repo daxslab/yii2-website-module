@@ -11,6 +11,8 @@ $this->title = Yii::t('website','Update Page Type: ' . $model->name, [
 $this->params['breadcrumbs'][] = ['label' => Yii::t('website','Settings'), 'url' => ['website/update']];
 $this->params['breadcrumbs'][] = ['label' => Yii::t('website','Page Types'), 'url' => ['website/update', '#' => 'page-types']];
 $this->params['breadcrumbs'][] = $model->name;
+
+$module = $this->context->module->id;
 ?>
 <div class="page-type-update">
 
@@ -22,6 +24,6 @@ $this->params['breadcrumbs'][] = $model->name;
         'model' => $model,
     ]) ?>
 
-    <?= Yii::$app->runAction('/website/metadata-definition/index', ['page_type_id' => $model->id]) ?>
+    <?= Yii::$app->runAction("/$module/metadata-definition/index", ['page_type_id' => $model->id]) ?>
 
 </div>

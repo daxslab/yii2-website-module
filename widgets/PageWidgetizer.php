@@ -53,7 +53,8 @@ class PageWidgetizer extends Widget
             throw new \ErrorException('"slug" or "action" must be set in block nodes');
         }
 
-        $action = $action ?: "/website/block/view";
+        $module = $this->view->context->module->id;
+        $action = $action ?: "/$module/block/view";
 
         foreach($node->attributes as $attribute){
             $params[$attribute->name] = $attribute->value;

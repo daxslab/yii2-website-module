@@ -14,6 +14,7 @@ $pageTypeOptions = \yii\helpers\ArrayHelper::map(Yii::$app->website->pageTypes, 
 $defaultImage = Yii::getAlias('@web/images/no-image.png');
 $currentWebsite = Yii::$app->website;
 
+$module = $this->context->module->id;
 
 ?>
 <div class="form">
@@ -44,7 +45,7 @@ $currentWebsite = Yii::$app->website;
                 'preset' => 'full',
                 'clientOptions' => [
                     'extraPlugins' => 'showprotected,imagebrowser,showblocks,pastefromword,div,find,save,clipboard',
-                    'imageBrowser_listUrl' => \yii\helpers\Url::to(['/website/media/get-images-for-gallery']),
+                    'imageBrowser_listUrl' => \yii\helpers\Url::to(["/$module/media/get-images-for-gallery"]),
                     'imageBrowser_pluginPath' => Yii::$app->assetManager->bundles[\daxslab\website\WebsiteAsset::class]->baseUrl,
                     'allowedContent' => true,
                     'contentsCss' => [
@@ -72,7 +73,7 @@ JS;
 
             <?= $model->id == null
                 ? Html::tag('div', Yii::t('website', 'You must save this page before adding subpages'), ['class' => 'alert alert-info'])
-                : Yii::$app->runAction('/website/page/index', [
+                : Yii::$app->runAction("/{$module}/page/index", [
                     'parent_id' => $model->id,
                     'language' => $model->language,
                 ]) ?>
@@ -121,7 +122,7 @@ JS;
                     ])
                     ?>
 
-                    <?= Yii::$app->runAction('/website/media/images-gallery') ?>
+                    <?= Yii::$app->runAction("/$module/media/images-gallery") ?>
 
                     <?php \yii\bootstrap4\Modal::end() ?>
                 </div>

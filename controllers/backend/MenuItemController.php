@@ -46,7 +46,7 @@ class MenuItemController extends Controller
     {
         $menu = Menu::findOne($menu_id);
         if ($menu == null || $menu->website_id != Yii::$app->website->id) {
-            throw new NotFoundHttpException(Yii::t('website','Menu not found'));
+            throw new NotFoundHttpException(Yii::t('website', 'Menu not found'));
         }
 
         $dataProvider = new ArrayDataProvider([
@@ -74,7 +74,7 @@ class MenuItemController extends Controller
     {
         $menu = Menu::findOne($menu_id);
         if ($menu == null || $menu->website_id != Yii::$app->website->id) {
-            throw new NotFoundHttpException(Yii::t('website','Menu not found'));
+            throw new NotFoundHttpException(Yii::t('website', 'Menu not found'));
         }
 
         $model = new MenuItem([
@@ -84,7 +84,7 @@ class MenuItemController extends Controller
         ]);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['/website/menu/update', 'id' => $menu->id]);
+            return $this->redirect(["/{$this->module->id}/menu/update", 'id' => $menu->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -103,7 +103,7 @@ class MenuItemController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['/website/menu/update', 'id' => $model->menu_id]);
+            return $this->redirect(["/{$this->module->id}/menu/update", 'id' => $model->menu_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -141,7 +141,7 @@ class MenuItemController extends Controller
         $menu = $model->menu;
         $model->delete();
 
-        return $this->redirect(['/website/menu/update', 'id' => $menu->id]);
+        return $this->redirect(["/{$this->module->id}/menu/update", 'id' => $menu->id]);
     }
 
     /**
@@ -157,6 +157,6 @@ class MenuItemController extends Controller
             return $model;
         }
 
-        throw new NotFoundHttpException(Yii::t('website','The requested page does not exist.'));
+        throw new NotFoundHttpException(Yii::t('website', 'The requested page does not exist.'));
     }
 }

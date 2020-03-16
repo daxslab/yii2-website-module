@@ -10,6 +10,7 @@ $this->title = Yii::t('website','Update Menu: ' . $model->name, [
 ]);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('website','Menus'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $model->name;
+$module = $this->context->module->id;
 ?>
 <div class="menu-update">
 
@@ -22,10 +23,10 @@ $this->params['breadcrumbs'][] = $model->name;
     ]) ?>
 
     <?= \yii\bootstrap4\Tabs::widget([
-        'items' => array_map(function ($item) use($model) {
+        'items' => array_map(function ($item) use($model, $module) {
             return [
                 'label' => $item,
-                'content' => Yii::$app->runAction('website/menu-item/index', ['menu_id' => $model->id, 'language' => $item])
+                'content' => Yii::$app->runAction("/$module/menu-item/index", ['menu_id' => $model->id, 'language' => $item])
             ];
         }, $this->context->module->languages)
     ]) ?>

@@ -34,8 +34,9 @@ class PageController extends Controller
 
         $parent = isset($parent_id) ? Page::findOne($parent_id) : null;
         if ($parent) {
+            $module = $this->module->id;
             $dataProvider->query = $parent->getPages();
-            $dataProvider->pagination->route = '/website/page/update';
+            $dataProvider->pagination->route = "/$module/page/update";
             $dataProvider->pagination->pageParam = "subpages-{$parent->id}";
         } else {
             $dataProvider->query = Yii::$app->website->getRootPages();
@@ -154,7 +155,8 @@ class PageController extends Controller
         ]);
 
         if ($galleryItem->save()) {
-            return $this->redirect(['/website/page/update', 'id' => $gallery->id]);
+            $module = $this->module->id;
+            return $this->redirect(["/$module/page/update", 'id' => $gallery->id]);
         } else {
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [

@@ -14,6 +14,7 @@ use vinpel\DropZone\DropZone;
 $this->title = Yii::t('website','Media');
 
 $this->params['breadcrumbs'][] = $this->title;
+$module = $this->context->module->id;
 
 ?>
 <div class="content-index">
@@ -27,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'options' => [
             'paramName' => "Media[filename]",
             'method' => 'post',
-            'url' => Url::toRoute(['/website/media/upload']),
+            'url' => Url::toRoute(["/$module/media/upload"]),
         ],
     ]);
     ?>

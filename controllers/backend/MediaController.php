@@ -37,7 +37,7 @@ class MediaController extends Controller
             'query' => Yii::$app->website->getMedias()
                 ->orderBy('filename'),
             'pagination' => [
-                'route' => Url::toRoute(['/website/media/index']),
+                'route' => Url::toRoute(["/{$this->module->id}/media/index"]),
             ],
         ]);
 
@@ -143,7 +143,7 @@ class MediaController extends Controller
     {
         $model = $this->findModel($id);
         $model->delete();
-        return $this->redirect(['/website/media/index']);
+        return $this->redirect(["/{$this->module->id}/media/index"]);
     }
 
     /**

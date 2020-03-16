@@ -7,6 +7,7 @@ use yii\widgets\ListView;
 /** @var $language string */
 /** @var $dataProvider \yii\data\ArrayDataProvider */
 
+$module = $this->context->module->id;
 ?>
 
 <header class="mb-4">
@@ -31,7 +32,7 @@ use yii\widgets\ListView;
     ])
     ?>
 
-    <?= Yii::$app->runAction('/website/media/images-gallery') ?>
+    <?= Yii::$app->runAction("/$module/media/images-gallery") ?>
 
     <?php \yii\bootstrap4\Modal::end() ?>
 

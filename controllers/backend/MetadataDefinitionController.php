@@ -66,7 +66,7 @@ class MetadataDefinitionController extends Controller
         ]);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['/website/page-type/update', 'id' => $model->page_type_id]);
+            return $this->redirect(["/{$this->module->id}/page-type/update", 'id' => $model->page_type_id]);
         }
 
         return $this->render('create', [
@@ -86,7 +86,7 @@ class MetadataDefinitionController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['/website/page-type/update', 'id' => $model->page_type_id]);
+            return $this->redirect(["/{$this->module->id}/page-type/update", 'id' => $model->page_type_id]);
         }
 
         return $this->render('update', [
@@ -106,7 +106,7 @@ class MetadataDefinitionController extends Controller
         $model = $this->findModel($id);
         $model->delete();
 
-        return $this->redirect(['/website/page-type/update', 'id' => $model->page_type_id]);
+        return $this->redirect(["/{$this->module->id}/page-type/update", 'id' => $model->page_type_id]);
     }
 
     /**
