@@ -33,13 +33,19 @@ $module = $this->context->module->id;
     ]);
     ?>
 
-    <br/>
+    <div class="card my-4">
+        <div class="card-body">
+            <?= $this->render('_search', [
+                'model' => $searchModel
+            ]) ?>
+        </div>
+    </div>
 
     <?=
     ListView::widget([
         'dataProvider' => $dataProvider,
         'layout' => '<div class="row">{items}</div>{pager}',
-        'itemOptions' => ['class' => 'col-md-3'],
+        'itemOptions' => ['class' => 'col-sm-6 col-md-3'],
         'itemView' => '_view',
     ])
     ?>

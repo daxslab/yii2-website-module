@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\helpers\StringHelper;
 
-$imageToDisplay = $model->isImage ? Yii::$app->thumbnailer->get($model->url, 300) : $model->prettyIcon;
+$imageToDisplay = $model->isImage ? Yii::$app->thumbnailer->get($model->url, 300, 300) : $model->prettyIcon;
 ?>
 
 <div class="card mb-4">

@@ -18,7 +18,7 @@ h2 span, h3 span, h4 span, h5 span, h6 span {
 }
 
 #image-gallery-modal .col-md-3 {
-    padding: 0;
+    /*padding: 0;*/
 }
 
 #image-gallery-modal .modal-body {

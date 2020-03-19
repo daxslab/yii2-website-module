@@ -3,6 +3,7 @@
 namespace daxslab\website\controllers\backend;
 
 use daxslab\website\models\Media;
+use daxslab\website\models\MediaSearch;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
@@ -33,15 +34,17 @@ class MediaController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Yii::$app->website->getMedias()
-                ->orderBy('filename'),
-            'pagination' => [
-                'route' => Url::toRoute(["/{$this->module->id}/media/index"]),
-            ],
+        $searchModel = new MediaSearch([
+            'website_id' => Yii::$app->website->id,
         ]);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->sort->defaultOrder = [
+            'created_at' => SORT_DESC,
+        ];
+        $dataProvider->pagination->route = Url::toRoute(['/website/media/index']);
 
         return $this->render('index', [
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
