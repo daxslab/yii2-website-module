@@ -4,8 +4,8 @@ use yii\data\ArrayDataProvider;
 
 $this->title = 'Pages';
 
-if(!$parent){
-    $this->params['breadcrumbs'][] = Yii::t('website',$this->title);
+if (!$parent) {
+    $this->params['breadcrumbs'][] = Yii::t('website', $this->title);
 }
 
 ?>

@@ -29,3 +29,7 @@ h2 span, h3 span, h4 span, h5 span, h6 span {
 .modal-lg {
     max-width: 1024px;
 }
+
+.tab-content{
+    margin-top: 1em;
+}

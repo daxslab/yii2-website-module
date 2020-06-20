@@ -25,6 +25,7 @@ use yii2tech\ar\position\PositionBehavior;
  * @property string $image
  * @property string $language
  * @property integer $position
+ * @property string $url
  *
  * @property Page $parent
  * @property PageType $type
@@ -222,13 +223,13 @@ class Page extends ActiveRecord
 
         return [
             'label' => $this->title,
-            'url' => $this->possibleUrl,
+            'url' => $this->url,
             'items' => $items,
             'linkOptions' => ['target' => '_blank']
         ];
     }
 
-    public function getPossibleUrl()
+    public function getUrl()
     {
         return "{$this->website->url}/{$this->language}/{$this->slug}";
     }

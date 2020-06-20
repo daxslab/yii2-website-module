@@ -9,6 +9,10 @@ use daxslab\website\widgets\PageWidgetizer;
     <?= $this->render('_header', ['model' => $model]) ?>
     <div class="container">
 
+        <?= \yii\bootstrap4\Breadcrumbs::widget([
+            'links' => \daxslab\website\components\Lookup::getBreadcrumbsForPage($model, true),
+        ]) ?>
+
         <?= \dosamigos\gallery\Gallery::widget([
             'items' => array_map(function ($model) {
                 return [

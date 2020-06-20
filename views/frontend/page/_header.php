@@ -10,7 +10,7 @@ $this->image = $model->image;
 
 <header class="jumbotron jumbotron-fluid">
     <div class="container">
-        <h1><?= $this->title ?></h1>
+        <h1 class="display-4"><?= $this->title ?></h1>
         <p class="lead mt-4 pt-4 border-top"><?= $this->description ?></p>
     </div>
 </header>

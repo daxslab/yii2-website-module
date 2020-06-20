@@ -32,6 +32,9 @@ class BaseController extends Controller
                 ->bySlug($slug)) !== null) {
             return $model;
         }
-        throw new NotFoundHttpException(Yii::t('website','The requested page does not exist.'));
+        throw new NotFoundHttpException(Yii::t('website','The page "{language}/{slug}" does not exist.', [
+            'language' => $language,
+            'slug' => $slug,
+        ]));
     }
 }

@@ -43,29 +43,12 @@ class Bootstrap implements BootstrapInterface
                 ];
             }
 
+            if (empty($module->languages)) {
+                $module->languages = [explode('-', $app->language)[0]];
+            }
+
             if ($app instanceof \yii\web\Application) {
 
-                if (empty($module->languages)) {
-                    $module->languages = [$app->language];
-                }
-
-                if (!empty($module->languages)) {
-                    $langs = join('|', $module->languages);
-                    $module->urlRules = [
-                        '<_lang:(' . $langs . ')>' => 'page/home',
-                        '<_lang:(' . $langs . ')>/<slug:[\w/-]+>' => 'page/view',
-                    ];
-                }
-
-                $configUrlRule = [
-                    'routePrefix' => 'website',
-                    'rules' => $module->urlRules,
-                ];
-
-                $configUrlRule['class'] = 'yii\web\GroupUrlRule';
-                $rule = Yii::createObject($configUrlRule);
-
-                $app->urlManager->addRules([$rule], false);
 
                 if (!$app->has('thumbnailer')) {
                     $app->set('thumbnailer', [
@@ -96,6 +79,25 @@ class Bootstrap implements BootstrapInterface
                     $module->viewPath = $module->viewPath == Yii::getAlias('@daxslab/website/views')
                         ? '@daxslab/website/views/frontend'
                         : $module->viewPath;
+
+                    if (!empty($module->languages)) {
+                        $langs = join('|', $module->languages);
+                        $module->urlRules = [
+                            '<_lang:(' . $langs . ')>' => 'page/home',
+                            '<_lang:(' . $langs . ')>/<slug:[\w/-]+>' => 'page/view',
+                        ];
+                    }
+
+                    $configUrlRule = [
+                        'routePrefix' => 'website',
+                        'rules' => $module->urlRules,
+                    ];
+
+                    $configUrlRule['class'] = 'yii\web\GroupUrlRule';
+                    $rule = Yii::createObject($configUrlRule);
+
+                    $app->urlManager->addRules([$rule], false);
+
                 }
             } else {
                 $module->controllerNamespace = 'daxslab\website\commands';
