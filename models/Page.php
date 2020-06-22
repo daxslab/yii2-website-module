@@ -115,7 +115,7 @@ class Page extends ActiveRecord
             'slug' => Yii::t('website','Slug'),
             'abstract' => Yii::t('website','Abstract'),
             'body' => Yii::t('website','Body'),
-            'image' => Yii::t('website','Image'),
+            'image' => Yii::t('website','Page Poster'),
             'language' => Yii::t('website','Language'),
         ];
     }

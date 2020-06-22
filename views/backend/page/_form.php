@@ -25,6 +25,8 @@ $module = $this->context->module->id;
 
     <div class="row">
         <div class="col-md-8">
+
+
             <div class="row">
                 <div class="col-md-8">
                     <?= $form->field($model, 'title') ?>
@@ -82,49 +84,53 @@ JS;
         </div>
         <div class="col-md-4">
 
-            <div class="image-area">
-                <div class="form-group">
-                    <?= Html::img(isset($model->image) ? $model->image : $defaultImage, ['id' => 'page-image-preview', 'class' => 'img-fluid']) ?>
-                    <div class="input-group">
+            <?= $form->field($model, 'status')->widget(\kartik\switchinput\SwitchInput::class, [
+                'pluginOptions' => [
+                    'onText' => Yii::t('website', 'Published'),
+                    'offText' => Yii::t('app', 'Draft'),
+                ],
+                'options' => [
+                    'onchange' => "this.form.submit()",
+                ]
+            ]) ?>
 
-                        <?= Html::activeTextInput($model, 'image', ['class' => 'form-control']) ?>
-
-                        <div class="btn-group" role="group" aria-label="Basic example">
-
-                            <?= Html::button(Yii::t('website', 'Set'), [
-                                'class' => 'btn btn-primary',
+            <div class="card mb-4">
+                <?= Html::activeLabel($model, 'image', ['class' => 'card-header']) ?>
+                <?= Html::img(isset($model->image) ? $model->image : $defaultImage, ['id' => 'page-image-preview', 'class' => 'img-fluid']) ?>
+                <div class="image-area card-body p-0">
+                    <div class="form-group mb-0">
+                        <div class="input-group">
+                            <?= Html::activeTextInput($model, 'image', ['class' => 'form-control']) ?>
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <?= Html::button(Yii::t('website', 'Set'), [
+                                    'class' => 'btn btn-primary',
+                                    'data' => [
+                                        'toggle' => 'modal',
+                                        'target' => '#image-gallery-modal',
+                                    ]]) ?>
+                                <?= Html::button(Yii::t('website', 'Delete'), [
+                                    'id' => 'btn-remove-picture',
+                                    'class' => 'btn btn-danger',
+                                ]) ?>
+                            </div>
+                        </div><!-- /input-group -->
+                        <?php
+                        \yii\bootstrap4\Modal::begin([
+                            'id' => 'image-gallery-modal',
+                            'size' => \yii\bootstrap4\Modal::SIZE_LARGE,
+                            'title' => Yii::t('website', 'Select an image'),
+                            'options' => [
                                 'data' => [
-                                    'toggle' => 'modal',
-                                    'target' => '#image-gallery-modal',
-                                ]]) ?>
-
-                            <?= Html::button(Yii::t('website', 'Delete'), [
-                                'id' => 'btn-remove-picture',
-                                'class' => 'btn btn-danger',
-                            ]) ?>
-
-                        </div>
-
-                    </div><!-- /input-group -->
-
-                    <?php
-                    \yii\bootstrap4\Modal::begin([
-                        'id' => 'image-gallery-modal',
-                        'size' => \yii\bootstrap4\Modal::SIZE_LARGE,
-                        'title' => Yii::t('website', 'Select an image'),
-                        'options' => [
-                            'data' => [
-                                'target-field' => '#page-image',
-                                'preview' => '#page-image-preview',
-                                'default-image' => $defaultImage,
+                                    'target-field' => '#page-image',
+                                    'preview' => '#page-image-preview',
+                                    'default-image' => $defaultImage,
+                                ]
                             ]
-                        ]
-                    ])
-                    ?>
-
-                    <?= Yii::$app->runAction("/$module/media/images-gallery") ?>
-
-                    <?php \yii\bootstrap4\Modal::end() ?>
+                        ])
+                        ?>
+                        <?= Yii::$app->runAction("/$module/media/images-gallery") ?>
+                        <?php \yii\bootstrap4\Modal::end() ?>
+                    </div>
                 </div>
             </div>
 
@@ -132,20 +138,22 @@ JS;
 
             <?php foreach ($metadatas as $index => $md): ?>
                 <?php if ($md->metadataDefinition->type == \yii\validators\BooleanValidator::class): ?>
-                    <?= $form->field($md, "[{$index}]value")->checkbox()->label($md->metadataDefinition->name) ?>
+                    <?= $form->field($md, "[{
+            $index
+            }]value")->checkbox()->label($md->metadataDefinition->name) ?>
                 <?php else: ?>
-                    <?= $form->field($md, "[{$index}]value")->label($md->metadataDefinition->name) ?>
+                    <?= $form->field($md, "[{
+            $index
+            }]value")->label($md->metadataDefinition->name) ?>
                 <?php endif; ?>
             <?php endforeach; ?>
 
-            <div class="form-group">
+            <div class="form-group border-top pt-3">
                 <?= Html::submitButton(Yii::t('website', 'Save'), ['class' => 'btn btn-primary']) ?>
                 <?php if (!$model->isNewRecord): ?>
-                    <?= Html::a(Yii::t('website', 'Delete'), Lookup::getLink($model, 'delete'), [
-                        'class' => 'btn btn-danger',
+                    <?= Html::a(Yii::t('website', 'Delete'), Lookup::getLink($model, 'delete'), ['class' => 'btn btn-danger',
                         'data-method' => 'post',
-                        'data-confirm' => Yii::t('website', 'Are you sure you want to delete this item?'),
-                    ]) ?>
+                        'data-confirm' => Yii::t('website', 'Are you sure you want to delete this item?'),]) ?>
                 <?php endif; ?>
             </div>
 
