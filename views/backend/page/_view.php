@@ -19,7 +19,7 @@ $thumbnailUrl = isset($model->image)
         </h2>
         <ul class="list-unstyled">
             <li><strong><?= Yii::t('website','Preview')?>: </strong> <?= Html::a($model->url, $model->url, ['target' => '_blank']) ?></li>
-            <li><strong><?= Yii::t('website','Updated')?>: </strong> <?= $model->updated_at ?></li>
+            <li><strong><?= Yii::t('website','Updated')?>: </strong> <?= $model->updated_at ?> <strong><?= Yii::t('website','by')?>: </strong> <?= $model->editor->name ?></li>
         </ul>
     </div>
 </li>

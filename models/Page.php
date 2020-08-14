@@ -167,12 +167,12 @@ class Page extends ActiveRecord
 
     public function getAuthor()
     {
-        return $this->hasOne(User::class, ['id' => 'created_by'])->inverseOf('createdPosts');
+        return $this->hasOne(User::class, ['id' => 'created_by'])->inverseOf('createdPages');
     }
 
     public function getEditor()
     {
-        return $this->hasOne(User::class, ['id' => 'updated_by'])->inverseOf('updatedPosts');
+        return $this->hasOne(User::class, ['id' => 'updated_by'])->inverseOf('updatedPages');
     }
 
     public function getIsPost()
