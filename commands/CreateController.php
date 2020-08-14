@@ -16,7 +16,7 @@ use Yii;
 
 class CreateController extends Controller
 {
-    public function actionIndex($url, $type)
+    public function actionIndex($url, $type = null)
     {
         if (isset($url) && !filter_var($url, FILTER_VALIDATE_URL)) {
             throw new \InvalidArgumentException(Yii::t('website', '$url is not valid'));
@@ -28,12 +28,13 @@ class CreateController extends Controller
         ]);
 
         if ($model->save()) {
-            $type = ucfirst($type);
-            $methodName = "generateContentFor{$type}";
-            if (method_exists($this, $methodName)) {
-                $this->$methodName($model);
+            if ($type) {
+                $type = ucfirst($type);
+                $methodName = "generateContentFor{$type}";
+                if (method_exists($this, $methodName)) {
+                    $this->$methodName($model);
+                }
             }
-
             $this->stdout(Yii::t('website', 'Website has been created. Use "{token}" as token!', [
                     'token' => $model->token
                 ]) . "\n", Console::FG_GREEN);
