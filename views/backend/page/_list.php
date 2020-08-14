@@ -15,16 +15,14 @@ $parent = isset($parent) ? $parent : null;
 
 ?>
 <div class="dropdown mb-3">
-    <?= Html::a(Yii::t('app', 'Create') . ' ' . Html::tag('b', false, ['class' => 'caret']), '#types-dropdown', [
+    <?= Html::a(Yii::t('app', 'Create') . Html::tag('b', false, ['class' => 'caret']), '#types-dropdown', [
         'class' => 'btn btn-primary dropdown-toggle',
         'data-toggle' => 'dropdown',
     ]) ?>
     <?= \yii\bootstrap4\Dropdown::widget([
         'items' => array_map(function ($item) use ($language, $parent) {
             return [
-                'label' => Yii::t('app', 'New {type}', [
-                    'type' => strtoupper(Html::encode($item->name)),
-                ]),
+                'label' => strtoupper(Html::encode($item->name)),
                 'url' => ['page/create',
                     'page_type_id' => $item->id,
                     'language' => $language,
