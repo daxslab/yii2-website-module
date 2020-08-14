@@ -8,23 +8,24 @@ use daxslab\website\models\Page;
 
 class BlockController extends BaseController
 {
-    public function actionView($slug, $view = null, $limit = 3)
+    public function actionView(array $params = [])
     {
+        $slug = $params['slug'];
+        $view = isset($params['view']) ? $params['view'] : null;
+
         $model = $this->findModel($slug, Yii::$app->language);
         $dataProvider = new ArrayDataProvider([
             'allModels' => $model->getPages()
                 ->byStatus(Page::STATUS_POST_PUBLISHED)
                 ->orderBy('created_at DESC')
-                ->limit($limit)
+                ->limit(isset($params['limit']) ? $params['limit'] : 3)
                 ->all()
         ]);
 
         $view = isset($view) ? $view : $model->type->name;
 
-        return $this->renderPartial($view, [
-            'view' => $view,
-            'model' => $model,
-            'dataProvider' => $dataProvider
-        ]);
+        $params['model'] = $model;
+        $params['dataProvider'] = $dataProvider;
+        return $this->renderPartial($view, $params);
     }
 }

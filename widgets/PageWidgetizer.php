@@ -56,6 +56,7 @@ class PageWidgetizer extends Widget
         $module = $this->view->context->module->id;
         $action = $action ?: "/$module/block/view";
 
+        $params = [];
         foreach($node->attributes as $attribute){
             $params[$attribute->name] = $attribute->value;
         }
@@ -63,7 +64,7 @@ class PageWidgetizer extends Widget
         unset($params['action']);
 
         try{
-            $output = Yii::$app->runAction($action, $params);
+            $output = Yii::$app->runAction($action, ['params' => $params]);
         }catch(Exception $e){
             $output = Html::tag('div', $e->getMessage(), ['class' => 'alert alert-danger']);
         }
