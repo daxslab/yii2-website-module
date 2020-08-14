@@ -14,23 +14,26 @@ $language = isset($language) ? $language : $parent->language;
 $parent = isset($parent) ? $parent : null;
 
 ?>
-
-<?= \yii\widgets\Menu::widget([
-    'options' => ['class' => 'list-inline'],
-    'itemOptions' => ['class' => 'list-inline-item'],
-    'items' => array_map(function ($item) use ($language, $parent) {
-        return [
-            'label' => Yii::t('app', 'New {type}', [
-                'type' => strtoupper(Html::encode($item->name)),
-            ]),
-            'url' => ['page/create',
-                'page_type_id' => $item->id,
-                'language' => $language,
-                'parent_id' => isset($parent) ? $parent->id : null
-            ],
-        ];
-    }, Yii::$app->website->pageTypes),
-]) ?>
+<div class="dropdown mb-3">
+    <?= Html::a(Yii::t('app', 'Create') . ' ' . Html::tag('b', false, ['class' => 'caret']), '#types-dropdown', [
+        'class' => 'btn btn-primary dropdown-toggle',
+        'data-toggle' => 'dropdown',
+    ]) ?>
+    <?= \yii\bootstrap4\Dropdown::widget([
+        'items' => array_map(function ($item) use ($language, $parent) {
+            return [
+                'label' => Yii::t('app', 'New {type}', [
+                    'type' => strtoupper(Html::encode($item->name)),
+                ]),
+                'url' => ['page/create',
+                    'page_type_id' => $item->id,
+                    'language' => $language,
+                    'parent_id' => isset($parent) ? $parent->id : null
+                ],
+            ];
+        }, Yii::$app->website->pageTypes)
+    ]) ?>
+</div>
 
 <?= ListView::widget([
     'dataProvider' => $dataProvider,
