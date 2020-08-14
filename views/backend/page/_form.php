@@ -32,7 +32,9 @@ $module = $this->context->module->id;
                     <?= $form->field($model, 'title') ?>
                 </div>
                 <div class="col-md-4">
-                    <?= $form->field($model, 'page_type_id')->dropDownList($pageTypeOptions) ?>
+                    <?= $form->field($model, 'page_type_id')->widget(\dosamigos\selectize\SelectizeDropDownList::class, [
+                        'items' => $pageTypeOptions,
+                    ]) ?>
                 </div>
             </div>
 
@@ -134,8 +136,6 @@ JS;
                 </div>
             </div>
 
-            <?= $form->field($model, 'status')->dropDownList(Lookup::getPostStatusOptions()) ?>
-
             <?php foreach ($metadatas as $index => $md): ?>
                 <?php if ($md->metadataDefinition->type == \yii\validators\BooleanValidator::class): ?>
                     <?= $form->field($md, "[{
@@ -148,7 +148,7 @@ JS;
                 <?php endif; ?>
             <?php endforeach; ?>
 
-            <div class="form-group border-top pt-3">
+            <div class="form-group">
                 <?= Html::submitButton(Yii::t('website', 'Save'), ['class' => 'btn btn-primary']) ?>
                 <?php if (!$model->isNewRecord): ?>
                     <?= Html::a(Yii::t('website', 'Delete'), Lookup::getLink($model, 'delete'), ['class' => 'btn btn-danger',
