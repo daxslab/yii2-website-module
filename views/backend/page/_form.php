@@ -138,13 +138,14 @@ JS;
 
             <?php foreach ($metadatas as $index => $md): ?>
                 <?php if ($md->metadataDefinition->type == \yii\validators\BooleanValidator::class): ?>
-                    <?= $form->field($md, "[{
-            $index
-            }]value")->checkbox()->label($md->metadataDefinition->name) ?>
+                    <?= $form
+                        ->field($md, "[{$index}]value")
+                        ->checkbox()
+                        ->label($md->metadataDefinition->name) ?>
                 <?php else: ?>
-                    <?= $form->field($md, "[{
-            $index
-            }]value")->label($md->metadataDefinition->name) ?>
+                    <?= $form
+                        ->field($md, "[{$index}]value")
+                        ->label($md->metadataDefinition->name) ?>
                 <?php endif; ?>
             <?php endforeach; ?>
 
