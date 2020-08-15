@@ -25,20 +25,54 @@ $module = $this->context->module->id;
 
     <div class="row">
         <div class="col-md-8">
-
-
-            <div class="row">
-                <div class="col-md-8">
-                    <?= $form->field($model, 'title') ?>
-                </div>
-                <div class="col-md-4">
-                    <?= $form->field($model, 'page_type_id')->widget(\dosamigos\selectize\SelectizeDropDownList::class, [
-                        'items' => $pageTypeOptions,
-                    ]) ?>
-                </div>
-            </div>
+            <?= $form->field($model, 'title') ?>
+        </div>
+        <div class="col-md-2">
+            <?= $form->field($model, 'page_type_id')->widget(\dosamigos\selectize\SelectizeDropDownList::class, [
+                'items' => $pageTypeOptions,
+            ]) ?>
+        </div>
+        <div class="col-md-2">
+            <?= $form->field($model, 'status')->widget(\kartik\switchinput\SwitchInput::class, [
+                'pluginOptions' => [
+                    'onText' => Yii::t('website', 'Published'),
+                    'offText' => Yii::t('app', 'Draft'),
+                ],
+                'options' => [
+                    'onchange' => "this.form.submit()",
+                ]
+            ]) ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
 
             <?= $form->field($model, 'abstract')->textarea(['rows' => 3]) ?>
+
+            <?php if (!empty($metadatas)): ?>
+                <div class="row">
+                    <?php foreach ($metadatas as $index => $md): ?>
+                        <div class="col-md-6">
+                            <?php if ($md->metadataDefinition->type == \yii\validators\BooleanValidator::class): ?>
+                                <?= $form
+                                    ->field($md, "[{$index}]value")
+                                    ->checkbox()
+                                    ->label(Yii::t('app', '{label} {name}', [
+                                        'label' => Html::encode($md->metadataDefinition->label),
+                                        'name' => Html::tag('span', '(' . Html::encode($md->metadataDefinition->name) . ')', ['class' => 'text-muted']),
+                                    ])) ?>
+                            <?php else: ?>
+                                <?= $form
+                                    ->field($md, "[{$index}]value")
+                                    ->label(Yii::t('app', '{label} {name}', [
+                                        'label' => Html::encode($md->metadataDefinition->label),
+                                        'name' => Html::tag('span', '(' . Html::encode($md->metadataDefinition->name) . ')', ['class' => 'text-muted']),
+                                    ])) ?>
+                            <?php endif; ?>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
 
             <?php
             // add showprotected ckeditor plugin for allowing usage of components
@@ -73,33 +107,12 @@ JS;
             $this->registerJs($script, View::POS_END);
             ?>
 
-            <h2><?= Yii::t('website', 'Subpages') ?></h2>
-
-            <?= $model->id == null
-                ? Html::tag('div', Yii::t('website', 'You must save this page before adding subpages'), ['class' => 'alert alert-info'])
-                : Yii::$app->runAction("/{$module}/page/index", [
-                    'parent_id' => $model->id,
-                    'language' => $model->language,
-                ]) ?>
-
-
         </div>
         <div class="col-md-4">
 
-            <?= $form->field($model, 'status')->widget(\kartik\switchinput\SwitchInput::class, [
-                'pluginOptions' => [
-                    'onText' => Yii::t('website', 'Published'),
-                    'offText' => Yii::t('app', 'Draft'),
-                ],
-                'options' => [
-                    'onchange' => "this.form.submit()",
-                ]
-            ]) ?>
-
-            <div class="card mb-4">
-                <?= Html::activeLabel($model, 'image', ['class' => 'card-header']) ?>
-                <?= Html::img(isset($model->image) ? $model->image : $defaultImage, ['id' => 'page-image-preview', 'class' => 'img-fluid']) ?>
-                <div class="image-area card-body p-0">
+            <div class="mb-4">
+                <?= Html::activeLabel($model, 'image') ?>
+                <div class="image-area">
                     <div class="form-group mb-0">
                         <div class="input-group">
                             <?= Html::activeTextInput($model, 'image', ['class' => 'form-control']) ?>
@@ -134,23 +147,11 @@ JS;
                         <?php \yii\bootstrap4\Modal::end() ?>
                     </div>
                 </div>
+                <?= Html::img(isset($model->image) ? $model->image : $defaultImage, ['id' => 'page-image-preview', 'class' => 'img-fluid']) ?>
             </div>
 
-            <?php foreach ($metadatas as $index => $md): ?>
-                <?php if ($md->metadataDefinition->type == \yii\validators\BooleanValidator::class): ?>
-                    <?= $form
-                        ->field($md, "[{$index}]value")
-                        ->checkbox()
-                        ->label($md->metadataDefinition->name) ?>
-                <?php else: ?>
-                    <?= $form
-                        ->field($md, "[{$index}]value")
-                        ->label($md->metadataDefinition->name) ?>
-                <?php endif; ?>
-            <?php endforeach; ?>
-
             <div class="form-group">
-                <?= Html::submitButton(Yii::t('website', 'Save'), ['class' => 'btn btn-primary']) ?>
+                <?= Html::submitButton(Yii::t('website', 'Save'), ['class' => 'btn btn-success']) ?>
                 <?php if (!$model->isNewRecord): ?>
                     <?= Html::a(Yii::t('website', 'Delete'), Lookup::getLink($model, 'delete'), ['class' => 'btn btn-danger',
                         'data-method' => 'post',
@@ -162,5 +163,15 @@ JS;
     </div>
 
     <?php ActiveForm::end(); ?>
+
+    <h2><?= Yii::t('website', 'Subpages') ?></h2>
+
+    <?= $model->id == null
+        ? Html::tag('div', Yii::t('website', 'You must save this page before adding subpages'), ['class' => 'alert alert-info'])
+        : Yii::$app->runAction("/{$module}/page/index", [
+            'parent_id' => $model->id,
+            'language' => $model->language,
+        ]) ?>
+
 
 </div><!-- _form -->

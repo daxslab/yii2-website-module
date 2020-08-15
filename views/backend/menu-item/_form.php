@@ -5,7 +5,7 @@ use yii\bootstrap4\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\MenuItem */
-/* @var $form yii\widgets\ActiveForm */
+/* @var $form yii\bootstrap4\ActiveForm */
 ?>
 
 <div class="menu-item-form">
@@ -35,7 +35,7 @@ use yii\bootstrap4\ActiveForm;
 
     <?php \yii\bootstrap4\Modal::begin([
         'id' => 'select-content-modal',
-        'title' => Html::tag('h4', Yii::t('website','Select content'), ['class' => 'modal-title']),
+        'title' => Html::tag('h4', Yii::t('website', 'Select content'), ['class' => 'modal-title']),
         'options' => [
             'data' => [
                 'target-field' => '#menuitem-url',
@@ -53,7 +53,7 @@ use yii\bootstrap4\ActiveForm;
     <?php \yii\bootstrap4\Modal::end() ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('website','Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Yii::t('website', 'Save'), ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

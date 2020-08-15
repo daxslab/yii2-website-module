@@ -5,7 +5,7 @@ use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Media */
-/* @var $form yii\widgets\ActiveForm */
+/* @var $form yii\bootstrap4\ActiveForm */
 ?>
 
 <div class="media-form">

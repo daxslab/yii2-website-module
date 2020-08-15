@@ -3,12 +3,14 @@
 namespace daxslab\website\models;
 
 use Yii;
+use yii\helpers\Inflector;
 
 /**
  * This is the model class for table "metadata_definition".
  *
  * @property int $id
  * @property string $name
+ * @property string $label
  * @property string $type
  * @property string $params
  * @property int $page_type_id
@@ -36,7 +38,7 @@ class MetadataDefinition extends \daxslab\website\models\ActiveRecord
     {
         return [
             [['name', 'type'], 'required'],
-            [['params'], 'string'],
+            [['params', 'label'], 'string'],
             [['page_type_id'], 'integer'],
             [['name', 'type'], 'string', 'max' => 255],
             [['page_type_id', 'name'], 'unique', 'targetAttribute' => ['page_type_id', 'name']],
@@ -57,6 +59,7 @@ class MetadataDefinition extends \daxslab\website\models\ActiveRecord
         return array_merge(parent::attributeLabels(), [
             'id' => Yii::t('website','ID'),
             'name' => Yii::t('website','Name'),
+            'label' => Yii::t('website','Label'),
             'type' => Yii::t('website','Type'),
             'params' => Yii::t('website','Params'),
             'page_type_id' => Yii::t('website','Page Type ID'),

@@ -5,7 +5,7 @@ use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model daxslab\website\models\Website */
-/* @var $form yii\widgets\ActiveForm */
+/* @var $form yii\bootstrap4\ActiveForm */
 ?>
 
 <div class="website-form">
