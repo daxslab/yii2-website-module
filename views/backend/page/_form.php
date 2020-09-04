@@ -164,14 +164,18 @@ JS;
 
     <?php ActiveForm::end(); ?>
 
-    <h2><?= Yii::t('website', 'Subpages') ?></h2>
-
-    <?= $model->id == null
-        ? Html::tag('div', Yii::t('website', 'You must save this page before adding subpages'), ['class' => 'alert alert-info'])
-        : Yii::$app->runAction("/{$module}/page/index", [
-            'parent_id' => $model->id,
-            'language' => $model->language,
-        ]) ?>
-
+    <?php if ($model->type->allow_subpages): ?>
+        <section>
+            <header>
+                <h2><?= Yii::t('website', 'Subpages') ?></h2>
+            </header>
+            <?= $model->id == null
+                ? Html::tag('div', Yii::t('website', 'You must save this page before adding subpages'), ['class' => 'alert alert-info'])
+                : Yii::$app->runAction("/{$module}/page/index", [
+                    'parent_id' => $model->id,
+                    'language' => $model->language,
+                ]) ?>
+        </section>
+    <?php endif; ?>
 
 </div><!-- _form -->

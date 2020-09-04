@@ -36,13 +36,14 @@ class PageController extends Controller
         if ($parent) {
             $module = $this->module->id;
             $dataProvider->query = $parent->getPages();
+            $dataProvider->query->orderBy($parent->type->sort_by);
             $dataProvider->pagination->route = "/$module/page/update";
             $dataProvider->pagination->pageParam = "subpages-{$parent->id}";
+            $dataProvider->pagination->pageSizeParam = "per-page-{$parent->id}";
         } else {
             $dataProvider->query = Yii::$app->website->getRootPages();
+            $dataProvider->query->orderBy('position');
         }
-
-        $dataProvider->query->orderBy('position');
 
         $renderMethod = isset($parent) ? 'renderPartial' : 'render';
         $renderView = isset($parent)

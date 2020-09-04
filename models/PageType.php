@@ -10,6 +10,8 @@ use yii\base\ErrorException;
  *
  * @property int $id
  * @property string $name
+ * @property boolean $allow_subpages
+ * @property string $sort_by
  * @property int $created_at
  * @property int $updated_at
  * @property int $created_by
@@ -21,9 +23,17 @@ use yii\base\ErrorException;
  */
 class PageType extends ActiveRecord
 {
-    const TYPE_POST = 'post';
-    const TYPE_HOME = 'home';
+    const TYPE_PAGE = 'page';
+    const TYPE_LANDING = 'landing';
     const TYPE_GALLERY = 'gallery';
+    const TYPE_LIST = 'list';
+
+    const TYPE_SORT_CREATE_DATE_INVERSE = 'created_at DESC';
+    const TYPE_SORT_CREATE_DATE = 'created_at';
+    const TYPE_SORT_UPDATE_DATE_INVERSE = 'updated_at DESC';
+    const TYPE_SORT_UPDATE_DATE = 'updated_at';
+    const TYPE_SORT_POSITION_INVERSE = 'position DESC';
+    const TYPE_SORT_POSITION = 'position';
 
     /**
      * {@inheritdoc}
@@ -39,7 +49,11 @@ class PageType extends ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'website_id'], 'required'],
+            [['name', 'website_id', 'allow_subpages'], 'required'],
+            [['allow_subpages'], 'boolean'],
+            [['sort_by'], 'string'],
+            [['sort_by'], 'default', 'value' => 'created_at DESC'],
+            [['sort_by'], 'in', 'range' => [self::TYPE_SORT_CREATE_DATE_INVERSE, self::TYPE_SORT_CREATE_DATE, self::TYPE_SORT_UPDATE_DATE_INVERSE, self::TYPE_SORT_UPDATE_DATE, self::TYPE_SORT_POSITION, self::TYPE_SORT_POSITION_INVERSE]],
             [['website_id'], 'integer'],
             [['name'], 'string', 'max' => 255],
             [['website_id'], 'exist', 'skipOnError' => true, 'targetClass' => Website::className(), 'targetAttribute' => ['website_id' => 'id']],
@@ -52,13 +66,15 @@ class PageType extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('website','ID'),
-            'name' => Yii::t('website','Name'),
-            'created_at' => Yii::t('website','Created At'),
-            'updated_at' => Yii::t('website','Updated At'),
-            'created_by' => Yii::t('website','Created By'),
-            'updated_by' => Yii::t('website','Updated By'),
-            'website_id' => Yii::t('website','Website ID'),
+            'id' => Yii::t('website', 'ID'),
+            'name' => Yii::t('website', 'Name'),
+            'allow_subpages' => Yii::t('website', 'Allow Subpages'),
+            'sort_by' => Yii::t('website', 'Sort Subpages by'),
+            'created_at' => Yii::t('website', 'Created At'),
+            'updated_at' => Yii::t('website', 'Updated At'),
+            'created_by' => Yii::t('website', 'Created By'),
+            'updated_by' => Yii::t('website', 'Updated By'),
+            'website_id' => Yii::t('website', 'Website ID'),
         ];
     }
 
@@ -88,17 +104,18 @@ class PageType extends ActiveRecord
 
     public static function defaultPageTypes()
     {
-        return ['home', 'post', 'gallery'];
+        return [self::TYPE_LANDING, self::TYPE_PAGE, self::TYPE_GALLERY, self::TYPE_LIST];
     }
 
-    public function getIsDefault(){
+    public function getIsDefault()
+    {
         return in_array($this->name, self::defaultPageTypes());
     }
 
     public function beforeDelete()
     {
-        if (in_array($this->name, self::defaultPageTypes())) {
-            throw new ErrorException(Yii::t('website',"You can't delete one of the default page types."));
+        if ($this->isDefault) {
+            throw new ErrorException(Yii::t('website', "You can't delete one of the default page types."));
         }
 
         return parent::beforeDelete();

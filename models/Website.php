@@ -188,10 +188,12 @@ class Website extends ActiveRecord
                 $types[] = new PageType([
                     'name' => 'landing',
                     'website_id' => $this->id,
+                    'allow_subpages' => 0,
                 ]);
                 $types[] = new PageType([
                     'name' => 'page',
                     'website_id' => $this->id,
+                    'allow_subpages' => 0,
                 ]);
                 $types[] = new PageType([
                     'name' => 'list',

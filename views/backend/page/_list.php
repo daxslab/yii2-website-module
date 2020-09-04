@@ -41,6 +41,9 @@ $parent = isset($parent) ? $parent : null;
         ]) . "\n{pager}",
     'itemView' => '_view',
     'itemOptions' => ['tag' => false],
+    'pager' => [
+        'class' => 'yii\bootstrap4\LinkPager',
+    ]
 ]) ?>
 
 <?php

@@ -17,7 +17,7 @@ class BlockController extends BaseController
         $dataProvider = new ArrayDataProvider([
             'allModels' => $model->getPages()
                 ->byStatus(Page::STATUS_POST_PUBLISHED)
-                ->orderBy('created_at DESC')
+                ->orderBy($model->type->sort_by)
                 ->limit(isset($params['limit']) ? $params['limit'] : 3)
                 ->all()
         ]);

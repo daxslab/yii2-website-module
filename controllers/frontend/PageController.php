@@ -33,7 +33,7 @@ class PageController extends BaseController
 
         $homePage = Yii::$app->website->getRootPages()->byLanguage($_lang)->orderBy('position')->one();
         if (!$homePage) {
-            throw new NotFoundHttpException(Yii::t('website','The requested page does not exist.'));
+            throw new NotFoundHttpException(Yii::t('website', 'The requested page does not exist.'));
         }
         return $this->actionView($homePage->slug, $_lang);
     }
@@ -44,7 +44,7 @@ class PageController extends BaseController
         $dataProvider = new ActiveDataProvider([
             'query' => $model->getPages()
                 ->byStatus(Page::STATUS_POST_PUBLISHED)
-                ->orderBy('created_at DESC')
+                ->orderBy($model->type->sort_by),
         ]);
 
         return $this->render($this->getViewFile($model), [
