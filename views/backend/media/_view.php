@@ -7,7 +7,7 @@ $imageToDisplay = $model->isImage ? Yii::$app->thumbnailer->get($model->url, 300
 ?>
 
 <div class="card mb-4">
-    <h2 class="card-header"><?= StringHelper::truncate(Html::encode($model->filename), 15) ?></h2>
+    <h2 class="card-header d-none"><?= StringHelper::truncate(Html::encode($model->filename), 15) ?></h2>
     <?= Html::img($imageToDisplay, ['alt' => $model->filename, 'class' => 'img-fluid']) ?>
     <div class="btn-group d-flex" role="group" aria-label="...">
         <?= Html::a(Yii::t('website','Delete'), \daxslab\website\components\Lookup::getLink($model, 'delete'), [
@@ -17,6 +17,7 @@ $imageToDisplay = $model->isImage ? Yii::$app->thumbnailer->get($model->url, 300
         ]) ?>
     </div>
     <div class="card-footer">
+        <?= Html::a(Yii::t('website', 'Link'), $model->url) ?>, 
         <?= Yii::$app->formatter->asShortSize($model->size, 2) ?>
     </div>
 </div>
