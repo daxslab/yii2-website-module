@@ -65,6 +65,7 @@ class Page extends ActiveRecord
             [['body'], 'cleanHtmlValidator'],
             [['title', 'slug', 'abstract', 'language'], 'string', 'max' => 1000],
             [['image', 'abstract', 'body'], 'default'],
+            [['image'], 'url'],
             [['status'], 'integer'],
             [['status'], 'default', 'value' => self::STATUS_POST_DRAFT],
             [['parent_id'], 'exist', 'skipOnError' => true, 'targetClass' => Page::class, 'targetAttribute' => ['parent_id' => 'id']],
