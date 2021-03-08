@@ -197,7 +197,7 @@ class Page extends ActiveRecord
             },
             'created_at',
             'updated_at',
-            'metadatas',
+            'metadata',
             'pages',
         ];
     }

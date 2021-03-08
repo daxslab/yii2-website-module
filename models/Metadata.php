@@ -87,7 +87,10 @@ class Metadata extends \daxslab\website\models\ActiveRecord
             'name' => function () {
                 return $this->metadataDefinition->name;
             },
-            'value'
+            'value',
+            'type' => function () {
+                return $this->metadataDefinition->type;
+            }
         ];
     }
 
