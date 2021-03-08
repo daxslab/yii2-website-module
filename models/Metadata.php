@@ -58,10 +58,10 @@ class Metadata extends \daxslab\website\models\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('website','ID'),
+            'id' => Yii::t('website', 'ID'),
             'value' => $this->metadataDefinition->name,
-            'page_id' => Yii::t('website','Page ID'),
-            'metadata_definition_id' => Yii::t('website','Metadata Definition ID'),
+            'page_id' => Yii::t('website', 'Page ID'),
+            'metadata_definition_id' => Yii::t('website', 'Metadata Definition ID'),
         ];
     }
 
@@ -79,6 +79,16 @@ class Metadata extends \daxslab\website\models\ActiveRecord
     public function getPage()
     {
         return $this->hasOne(Page::className(), ['id' => 'page_id']);
+    }
+
+    public function fields()
+    {
+        return [
+            'name' => function () {
+                return $this->metadataDefinition->name;
+            },
+            'value'
+        ];
     }
 
     /**

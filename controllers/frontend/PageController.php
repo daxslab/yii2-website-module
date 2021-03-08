@@ -21,6 +21,7 @@ class PageController extends BaseController
                 'formats' => [
                     'text/html' => Response::FORMAT_HTML,
                     'application/json' => Response::FORMAT_JSON,
+                    'application/xml' => Response::FORMAT_XML,
                 ],
                 'languages' => $this->module->languages,
             ],
@@ -38,7 +39,7 @@ class PageController extends BaseController
         return $this->actionView($homePage->slug, $_lang);
     }
 
-    public function actionView($slug, $_lang)
+    public function actionView($slug, $_lang, $_format = Response::FORMAT_HTML)
     {
         $model = $this->findModel($slug, $_lang);
         $dataProvider = new ActiveDataProvider([
@@ -47,10 +48,14 @@ class PageController extends BaseController
                 ->orderBy($model->type->sort_by),
         ]);
 
-        return $this->render($this->getViewFile($model), [
+        $data = [
             'model' => $model,
             'dataProvider' => $dataProvider,
-        ]);
+        ];
+
+        return $_format == Response::FORMAT_HTML
+            ? $this->render($this->getViewFile($model), $data)
+            : $data;
     }
 
 }

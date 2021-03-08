@@ -84,6 +84,7 @@ class Bootstrap implements BootstrapInterface
                         $langs = join('|', $module->languages);
                         $module->urlRules = [
                             '<_lang:(' . $langs . ')>' => 'page/home',
+                            '<_lang:(' . $langs . ')>/<slug:[\w/-]+>.<_format>' => 'page/view',
                             '<_lang:(' . $langs . ')>/<slug:[\w/-]+>' => 'page/view',
                         ];
                     }
