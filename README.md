@@ -30,7 +30,7 @@ to the require section of your `composer.json` file.
 Introduction
 ------------
 
-Website tries to be an unobstrusive CMS without limiting the capabilities of Yii2 framework as development platform. The idea is that you can website features to an existing application, or just created a website based on Yii2 framework.
+Website tries to be an unobstrusive CMS without limiting the capabilities of Yii2 framework as development platform. The idea is that you can add website features to an existing application, or just create a website based on Yii2 framework.
 
 The idea behind **Website** module is a bit different compared with other CMS. While generally pages, posts and categories are managed, in **Website** everything is a page and every page can have children pages so,
 
@@ -89,7 +89,7 @@ Configure controllers namespaces for the module in each app. Let's start with fr
 	//...
 	'modules' => [
 		'website' => [
-			'controllerNamespace' => 'website\daxslab\controllers\frontend'
+			'controllerNamespace' => 'daxslab\website\controllers\frontend'
 		]
 	]
 	//...
@@ -99,7 +99,7 @@ And similar for backend/config/main.php
 	//...
 	'modules' => [
 		'website' => [
-			'controllerNamespace' => 'website\daxslab\controllers\backend'
+			'controllerNamespace' => 'daxslab\website\controllers\backend'
 		]
 	
 	]
